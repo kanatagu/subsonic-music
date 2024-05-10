@@ -26,7 +26,6 @@ export const Carousel = () => {
 
         const albumArray = response.data['subsonic-response'].albumList2.album;
 
-        console.log('albumArray', albumArray);
         setAlbums(albumArray);
         setSelectedAlbumInfo({
           id: albumArray[0].id,
