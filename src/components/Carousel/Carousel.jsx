@@ -7,6 +7,7 @@ import { TrackList } from '../TrackList/TrackList';
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export const Carousel = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [albums, setAlbums] = useState([]);
   const [selectedAlbumIndex, setSelectedAlbumIndex] = useState(0);
   const [selectedAlbumInfo, setSelectedAlbumInfo] = useState({
@@ -17,6 +18,8 @@ export const Carousel = () => {
   useEffect(() => {
     const getLatestAlbums = async () => {
       try {
+        setIsLoading(true);
+
         const response = await axiosClient.get(
           `/getAlbumList2${BASE_PARAM}&f=${FORMAT}&type=recent`
         );
@@ -31,6 +34,8 @@ export const Carousel = () => {
         });
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -58,6 +63,8 @@ export const Carousel = () => {
       name: albums[newIndex].name,
     });
   };
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div>

@@ -4,11 +4,14 @@ import axiosClient from '../../api/base';
 import { BASE_PARAM, FORMAT } from '../../const/apiParam';
 
 export const TrackList = ({ selectedAlbumInfo }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [trackList, setTrackList] = useState([]);
 
   useEffect(() => {
     const getAlbum = async () => {
       try {
+        setIsLoading(true);
+
         const response = await axiosClient.get(
           `/getAlbum${BASE_PARAM}&f=${FORMAT}&id=${selectedAlbumInfo.id}`
         );
@@ -22,6 +25,8 @@ export const TrackList = ({ selectedAlbumInfo }) => {
         setTrackList(data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -33,22 +38,26 @@ export const TrackList = ({ selectedAlbumInfo }) => {
   return (
     <div className={styles['track-list']}>
       <h2 className={styles['track-list_title']}>{selectedAlbumInfo.name}</h2>
-      <table className={styles['track-list_table']}>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Track</th>
-          </tr>
-        </thead>
-        <tbody>
-          {trackList.map((song, index) => (
-            <tr key={index}>
-              <td className={styles['track-list_track']}>{song.track}</td>
-              <td className={styles['track-list_title']}>{song.title}</td>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <table className={styles['track-list_table']}>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Track</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {trackList.map((song, index) => (
+              <tr key={index}>
+                <td className={styles['track-list_track']}>{song.track}</td>
+                <td className={styles['track-list_title']}>{song.title}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
