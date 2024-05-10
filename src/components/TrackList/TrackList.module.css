@@ -1,0 +1,37 @@
+.track-list {
+  max-width: 890px;
+  margin: 0 auto;
+  min-height: 400px;
+}
+
+.track-list_title {
+  font-size: 30px;
+  text-align: left;
+}
+
+.track-list_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.track-list_table th {
+  background-color: rgb(211, 209, 209);
+  border: 1px solid rgb(135, 134, 134);
+  font-size: 18px;
+  padding: 4px;
+}
+
+.track-list_table td {
+  border: 1px solid rgb(135, 134, 134);
+  padding: 4px;
+  font-size: 16px;
+}
+
+.track-list_track {
+  text-align: center;
+  width: 48px;
+}
+
+.track-list_title {
+  text-align: left;
+}
